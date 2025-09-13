@@ -1,0 +1,723 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 网页爬虫
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/siliconflow:0.0.27@3c4e37fef7455da28d36d559dde85201fc0b4f1819b80cd24eba56da15a711f9
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/firecrawl:0.0.3@02f037a6e82c44103d3604456f8e57b5516464183344f32d74eec3f82d6036b0
+kind: app
+version: 0.4.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: tool
+      id: 1757417970929-source-1757418804275-target
+      source: '1757417970929'
+      sourceHandle: source
+      target: '1757418804275'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: llm
+      id: 1757418804275-source-1757419098671-target
+      source: '1757418804275'
+      sourceHandle: source
+      target: '1757419098671'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1757419098671-source-1757419125557-target
+      source: '1757419098671'
+      sourceHandle: source
+      target: '1757419125557'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: llm
+      id: 1757418804275-source-1757423332671-target
+      source: '1757418804275'
+      sourceHandle: source
+      target: '1757423332671'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: answer
+      id: 1757419125557-source-1757472798677-target
+      source: '1757419125557'
+      sourceHandle: source
+      target: '1757472798677'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1757423332671-source-1757473621789-target
+      source: '1757423332671'
+      sourceHandle: source
+      target: '1757473621789'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1757473621789-source-1757419125557-target
+      source: '1757473621789'
+      sourceHandle: source
+      target: '1757419125557'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 52
+      id: '1757417970929'
+      position:
+        x: 30
+        y: 361
+      positionAbsolute:
+        x: 30
+        y: 361
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        desc: ''
+        is_team_authorization: false
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: The URL of the website to scrape and extract data from.
+            ja_JP: The URL of the website to scrape and extract data from.
+            pt_BR: The URL of the website to scrape and extract data from.
+            zh_Hans: 要抓取并提取数据的网站URL。
+          label:
+            en_US: URL to scrape
+            ja_JP: URL to scrape
+            pt_BR: URL to scrape
+            zh_Hans: 要抓取的URL
+          llm_description: The URL of the website that needs to be crawled. This is
+            a required parameter.
+          max: null
+          min: null
+          name: url
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: 'Formats to include in the output. Available options: markdown,
+              html, rawHtml, links, screenshot, extract, screenshot@fullPage'
+            ja_JP: 'Formats to include in the output. Available options: markdown,
+              html, rawHtml, links, screenshot, extract, screenshot@fullPage'
+            pt_BR: 'Formats to include in the output. Available options: markdown,
+              html, rawHtml, links, screenshot, extract, screenshot@fullPage'
+            zh_Hans: '输出中应包含的格式。可以填入: markdown, html, rawHtml, links, screenshot,
+              extract, screenshot@fullPage'
+          label:
+            en_US: Formats
+            ja_JP: Formats
+            pt_BR: Formats
+            zh_Hans: 结果的格式
+          llm_description: ''
+          max: null
+          min: null
+          name: formats
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: 0
+          form: form
+          human_description:
+            en_US: Only return the main content of the page excluding headers, navs,
+              footers, etc.
+            ja_JP: Only return the main content of the page excluding headers, navs,
+              footers, etc.
+            pt_BR: Only return the main content of the page excluding headers, navs,
+              footers, etc.
+            zh_Hans: 只返回页面的主要内容，不包括头部、导航栏、尾部等。
+          label:
+            en_US: only Main Content
+            ja_JP: only Main Content
+            pt_BR: only Main Content
+            zh_Hans: 仅抓取主要内容
+          llm_description: ''
+          max: null
+          min: null
+          name: onlyMainContent
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: 'Only include tags, classes and ids from the page in the final
+              output. Use comma separated values. Example: script, .ad, #footer'
+            ja_JP: 'Only include tags, classes and ids from the page in the final
+              output. Use comma separated values. Example: script, .ad, #footer'
+            pt_BR: 'Only include tags, classes and ids from the page in the final
+              output. Use comma separated values. Example: script, .ad, #footer'
+            zh_Hans: '仅在最终输出中包含HTML页面的这些标签，可以通过标签名、类或ID来设定，使用逗号分隔值。示例：script, .ad,
+              #footer'
+          label:
+            en_US: Include Tags
+            ja_JP: Include Tags
+            pt_BR: Include Tags
+            zh_Hans: 仅抓取这些标签
+          llm_description: ''
+          max: null
+          min: null
+          name: includeTags
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: 'Tags, classes and ids to remove from the page. Use comma separated
+              values. Example: script, .ad, #footer
+
+              '
+            ja_JP: 'Tags, classes and ids to remove from the page. Use comma separated
+              values. Example: script, .ad, #footer
+
+              '
+            pt_BR: 'Tags, classes and ids to remove from the page. Use comma separated
+              values. Example: script, .ad, #footer
+
+              '
+            zh_Hans: '要在最终输出中移除HTML页面的这些标签，可以通过标签名、类或ID来设定，使用逗号分隔值。示例：script, .ad,
+              #footer
+
+              '
+          label:
+            en_US: Exclude Tags
+            ja_JP: Exclude Tags
+            pt_BR: Exclude Tags
+            zh_Hans: 要移除这些标签
+          llm_description: ''
+          max: null
+          min: null
+          name: excludeTags
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: 'Headers to send with the request. Can be used to send cookies,
+              user-agent, etc. Example: {"cookies": "testcookies"}'
+            ja_JP: 'Headers to send with the request. Can be used to send cookies,
+              user-agent, etc. Example: {"cookies": "testcookies"}'
+            pt_BR: 'Headers to send with the request. Can be used to send cookies,
+              user-agent, etc. Example: {"cookies": "testcookies"}'
+            zh_Hans: '随请求发送的头部。可以用来发送cookies、用户代理等。示例：{"cookies": "testcookies"}'
+          label:
+            en_US: headers
+            ja_JP: headers
+            pt_BR: headers
+            zh_Hans: 请求头
+          llm_description: ''
+          max: null
+          min: null
+          name: headers
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: 0
+          form: form
+          human_description:
+            en_US: Wait x amount of milliseconds for the page to load to fetch content.
+            ja_JP: Wait x amount of milliseconds for the page to load to fetch content.
+            pt_BR: Wait x amount of milliseconds for the page to load to fetch content.
+            zh_Hans: 等待x毫秒以使页面加载并获取内容。
+          label:
+            en_US: wait For
+            ja_JP: wait For
+            pt_BR: wait For
+            zh_Hans: 等待时间
+          llm_description: ''
+          max: null
+          min: 0
+          name: waitFor
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: number
+        - auto_generate: null
+          default: 30000
+          form: form
+          human_description:
+            en_US: Timeout in milliseconds for the request.
+            ja_JP: Timeout in milliseconds for the request.
+            pt_BR: Timeout in milliseconds for the request.
+            zh_Hans: 请求的超时时间（以毫秒为单位）。
+          label:
+            en_US: Timeout
+            ja_JP: Timeout
+            pt_BR: Timeout
+            zh_Hans: Timeout
+          llm_description: ''
+          max: null
+          min: 0
+          name: timeout
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: number
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: "The schema for the data to be extracted. Example: {\n    \"type\"\
+              : \"object\",\n    \"properties\": {\"company_mission\": {\"type\":\
+              \ \"string\"}},\n    \"required\": [\"company_mission\"]\n}\n"
+            ja_JP: "The schema for the data to be extracted. Example: {\n    \"type\"\
+              : \"object\",\n    \"properties\": {\"company_mission\": {\"type\":\
+              \ \"string\"}},\n    \"required\": [\"company_mission\"]\n}\n"
+            pt_BR: "The schema for the data to be extracted. Example: {\n    \"type\"\
+              : \"object\",\n    \"properties\": {\"company_mission\": {\"type\":\
+              \ \"string\"}},\n    \"required\": [\"company_mission\"]\n}\n"
+            zh_Hans: "使用该结构去提取，示例：{\n     \"type\": \"object\",\n     \"properties\"\
+              : {\"company_mission\": {\"type\": \"string\"}},\n     \"required\"\
+              : [\"company_mission\"]\n }\n"
+          label:
+            en_US: Extractor Schema
+            ja_JP: Extractor Schema
+            pt_BR: Extractor Schema
+            zh_Hans: 提取时的结构
+          llm_description: ''
+          max: null
+          min: null
+          name: schema
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: The system prompt to use for the extraction.
+            ja_JP: The system prompt to use for the extraction.
+            pt_BR: The system prompt to use for the extraction.
+            zh_Hans: 用于提取的系统提示。
+          label:
+            en_US: Extractor System Prompt
+            ja_JP: Extractor System Prompt
+            pt_BR: Extractor System Prompt
+            zh_Hans: 提取时的系统提示词
+          llm_description: ''
+          max: null
+          min: null
+          name: systemPrompt
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: The prompt to use for the extraction without a schema.
+            ja_JP: The prompt to use for the extraction without a schema.
+            pt_BR: The prompt to use for the extraction without a schema.
+            zh_Hans: 用于无schema时提取的提示词
+          label:
+            en_US: Extractor Prompt
+            ja_JP: Extractor Prompt
+            pt_BR: Extractor Prompt
+            zh_Hans: 提取时的提示词
+          llm_description: ''
+          max: null
+          min: null
+          name: prompt
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          excludeTags: ''
+          formats: ''
+          headers: ''
+          includeTags: ''
+          onlyMainContent: ''
+          prompt: ''
+          schema: ''
+          systemPrompt: ''
+          timeout: ''
+          url: ''
+          waitFor: ''
+        provider_id: langgenius/firecrawl/firecrawl
+        provider_name: langgenius/firecrawl/firecrawl
+        provider_type: builtin
+        selected: false
+        title: 单页面抓取
+        tool_configurations:
+          excludeTags:
+            type: mixed
+            value: null
+          formats:
+            type: mixed
+            value: markdown
+          headers:
+            type: mixed
+            value: '{"user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+              (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"}'
+          includeTags:
+            type: mixed
+            value: null
+          onlyMainContent:
+            type: constant
+            value: false
+          prompt:
+            type: mixed
+            value: null
+          schema:
+            type: mixed
+            value: null
+          systemPrompt:
+            type: mixed
+            value: null
+          timeout:
+            type: constant
+            value: 30000
+          waitFor:
+            type: constant
+            value: 0
+        tool_description: 将任何网址转换为干净的数据。
+        tool_label: 单页面抓取
+        tool_name: scrape
+        tool_node_version: '2'
+        tool_parameters:
+          url:
+            type: mixed
+            value: '{{#sys.query#}}'
+        type: tool
+      height: 322
+      id: '1757418804275'
+      position:
+        x: 333
+        y: 361
+      positionAbsolute:
+        x: 333
+        y: 361
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1757418804275'
+          - text
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: Qwen/Qwen2.5-7B-Instruct
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: bf930f41-c84b-4c80-9dea-a821f815606a
+          role: system
+          text: '从输入文本中提取主要信息作为知识库标题，输出不要有与标题无关的文本。
+
+            文章内容如下：
+
+            {{#context#}}'
+        selected: false
+        title: 提取文章标题
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '1757419098671'
+      position:
+        x: 939
+        y: 361
+      positionAbsolute:
+        x: 939
+        y: 361
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-55
+            key: ''
+            type: text
+            value: '{"name": "{{#1757419098671.text#}}","text": "{{#1757473621789.result#}}","indexing_technique":
+              "high_quality","process_rule": {"mode": "automatic"}}'
+          type: raw-text
+        desc: ''
+        headers: 'Authorization:Bearer dataset-epDqjldMM0JVXpEyKjafESlh
+
+          Content-Type:application/json'
+        method: POST
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 保存到知识库
+        type: http-request
+        url: http://10.11.24.34/v1/datasets/60d91800-e7c7-4b47-986c-0aebebc61b8b/document/create-by-text
+        variables: []
+      height: 169
+      id: '1757419125557'
+      position:
+        x: 1242
+        y: 361
+      positionAbsolute:
+        x: 1242
+        y: 361
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1757418804275'
+          - text
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: Qwen/Qwen2.5-7B-Instruct
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: a13be52d-941f-4af3-b990-3311b66d6021
+          role: system
+          text: '输入内容来自于微信文章，你需要从中提取有效信息，过滤掉与主要内容无关的部分，比如所有的图片链接和与文章内容无关的页面说明，不要删除输入中的文本部分。
+
+            文章内容如下：{{#context#}}'
+        selected: false
+        title: 提取文章内容
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '1757423332671'
+      position:
+        x: 636
+        y: 471
+      positionAbsolute:
+        x: 636
+        y: 471
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        answer: '{{#1757419125557.status_code#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 103
+      id: '1757472798677'
+      position:
+        x: 1545
+        y: 361
+      positionAbsolute:
+        x: 1545
+        y: 361
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        code: "def main(arg1):\n    replacements = [\n        ('\\\\', '\\\\\\\\'),\n\
+          \        ('\"', '\\\\\"'),\n        (\"'\", \"\\\\'\"),\n        ('\\n',\
+          \ '\\\\n'),\n        ('\\r', '\\\\r'),\n        ('\\t', '\\\\t')\n    ]\n\
+          \    result = arg1\n    for old, new in replacements:\n        result =\
+          \ result.replace(old, new)\n    return {'result': result}"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行
+        type: code
+        variables:
+        - value_selector:
+          - '1757423332671'
+          - text
+          value_type: string
+          variable: arg1
+      height: 52
+      id: '1757473621789'
+      position:
+        x: 939
+        y: 489
+      positionAbsolute:
+        x: 939
+        y: 489
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    viewport:
+      x: 270.2221650466323
+      y: -65.46162191791882
+      zoom: 0.804088852586634
